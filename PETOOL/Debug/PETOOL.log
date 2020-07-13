@@ -1,0 +1,11 @@
+﻿  PETOOL.cpp
+H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\CmnHdr.h(17,1): warning C4005: “_WIN32_WINNT”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\sdkddkver.h(217): message : 参见“_WIN32_WINNT”的前一个定义
+H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\CmnHdr.h(18,1): warning C4005: “WINVER”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\sdkddkver.h(238): message : 参见“WINVER”的前一个定义
+H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(124,9): warning C4189: “err”: 局部变量已初始化但不引用
+H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(171,37): warning C4459: “hListProcess”的声明隐藏了全局声明
+H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(25,6): message : 参见“hListProcess”的声明
+H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(290,7): warning C4189: “bRet”: 局部变量已初始化但不引用
+H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(369,2): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
+  PETOOL.vcxproj -> H:\2020-2021\PECODE\滴水初级\PE\PE\Debug\PETOOL.exe
