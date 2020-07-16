@@ -20,6 +20,9 @@ H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(271,58): warning C4311:
 H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(271,58): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
 H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(277,58): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
 H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(277,58): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
-H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(288,7): warning C4189: “bRet”: 局部变量已初始化但不引用
-H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(362,2): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
+H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(357,5): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
+H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(362,5): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
+H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(430,4): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
+H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(434,4): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
+H:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(481,2): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
   PETOOL.vcxproj -> H:\2020-2021\PECODE\滴水初级\PE\PE\x64\Debug\PETOOL.exe

@@ -277,15 +277,125 @@ void InitModuleListView() {
 	SendMessage(hListModule, LVM_INSERTCOLUMN, 1, (DWORD)&lv);
 
 }
+INT_PTR   CALLBACK SectionPro(
+	HWND hwnd,      // handle to window
+	UINT uMsg,      // message identifier
+	WPARAM wParam,  // first message parameter
+	LPARAM lParam   // second message parameter
+)
+{
+	switch (uMsg) {
+
+	case WM_CLOSE:
+	{
+		//关闭对话框
+		EndDialog(hwnd, uMsg);
+		return 1;
+	}
+	}
+
+	return 0;
+}
+INT_PTR   CALLBACK DirPro(
+	HWND hwnd,      // handle to window
+	UINT uMsg,      // message identifier
+	WPARAM wParam,  // first message parameter
+	LPARAM lParam   // second message parameter
+)
+{
+	switch (uMsg) {
+
+		case WM_CLOSE:
+		{
+			//关闭对话框
+			EndDialog(hwnd, uMsg);
+			return 1;
+		}
+		case WM_COMMAND:
+		{
+			switch (LOWORD(wParam)) {
+			case IDC_BUTTON2_GUANBI:
+			{
+				//关闭对话框
+				EndDialog(hwnd, uMsg);
+				return 1;
+			}
+	
+			}
+		}
+	}
+
+	return 0;
+}
+INT_PTR   CALLBACK PEInfoPro(
+	HWND hwnd,      // handle to window
+	UINT uMsg,      // message identifier
+	WPARAM wParam,  // first message parameter
+	LPARAM lParam   // second message parameter
+)
+{
+	switch (uMsg) {
+
+		case WM_CLOSE:
+		{
+			//关闭对话框
+			EndDialog(hwnd, uMsg);
+			return 1;
+		}
+
+		case WM_COMMAND:
+		{
+			switch (LOWORD(wParam)) {
+			case IDC_BUTTON_GUANBI:
+			{
+				//关闭对话框
+				EndDialog(hwnd, uMsg);
+				return 1;
+			}
+			case IDC_BUTTON1_QUDUAN:
+			{
+				DialogBoxW(NULL, MAKEINTRESOURCE(IDD_DIALOG_SectionTable), NULL, SectionPro, 0);
+				return 1;
+			}
+			case IDC_BUTTON3_MULU:
+			{
+				DialogBoxW(NULL, MAKEINTRESOURCE(IDD_DIALOG1_MULU), NULL, DirPro, 0);
+				return 1;
+			}
+			}
+		}
+		return 1;
+	}
+
+	return 0;
+}
+INT_PTR   CALLBACK AboutPro(
+	HWND hwnd,      // handle to window
+	UINT uMsg,      // message identifier
+	WPARAM wParam,  // first message parameter
+	LPARAM lParam   // second message parameter
+)
+{
+	switch (uMsg) {
+
+	case WM_CLOSE:
+	{
+		//关闭对话框
+		EndDialog(hwnd, uMsg);
+		return 1;
+	}
+	}
+
+	return 0;
+}
+
 INT_PTR   CALLBACK MainDlgProc(
 	HWND hwnd,      // handle to window
 	UINT uMsg,      // message identifier
 	WPARAM wParam,  // first message parameter
 	LPARAM lParam   // second message parameter
-
 )
 {
-	BOOL bRet = true;
 	switch (uMsg) {
 	case WM_DESTROY:
 
@@ -315,10 +425,18 @@ INT_PTR   CALLBACK MainDlgProc(
 	{
 		OutputDebugStringF("WM_COMMAND...");
 		switch (LOWORD(wParam)) {
-		case 111:
-			OutputDebugStringF("Button...");
+		case IDC_BUTTON_About:
+			///加载关于界面
+			DialogBoxW(NULL, MAKEINTRESOURCE(IDD_DIALOG_ABOUTAIALOG), NULL, AboutPro, 0);
+		
+			return 1;
+		case IDC_BUTTON_PE:
+			DialogBoxW(NULL, MAKEINTRESOURCE(IDD_DIALOG_PE), NULL, PEInfoPro, 0);
 			return 1;
 		}
+	case IDC_BUTTON_Exit://退出按钮
+		PostQuitMessage(0);
+		return 1;
 	}
 	case WM_NOTIFY:
 	{
@@ -329,6 +447,7 @@ INT_PTR   CALLBACK MainDlgProc(
 			WCHAR szBuffer[MAX_PATH];
 			int line = ListView_GetSelectionMark(hListProcess);	 //点选的行数
 			ListView_GetItemText(hListProcess, line, 0, szBuffer, MAX_PATH);
+
 			WCHAR PID[10];
 			memset(PID, 0, 10);
 			DWORD dpid=0;
