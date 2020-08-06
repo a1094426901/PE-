@@ -53,6 +53,7 @@
 #define IDC_BUTTON1_SHUCHUBIAO          1044
 #define IDC_BUTTON2_GUANBI              1045
 #define IDC_EDIT17_QUANJUZHIZHENRVA     1046
+#define IDC_STATIC_FilePath             1088
 #define IDC_EDIT18_QUANJUZHIZHENSIZE    1047
 #define IDC_EDIT19_TLSRVA               1048
 #define IDC_EDIT20_TLSSIZE              1049
@@ -80,7 +81,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        113
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1046
+#define _APS_NEXT_CONTROL_VALUE         1047
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

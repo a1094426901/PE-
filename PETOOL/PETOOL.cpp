@@ -19,10 +19,23 @@
 #include <Shlwapi.h>//StrFormatKBSize
 //非通用控件
 #include <commctrl.h>
+#include <string>
 #pragma comment(lib,"comctl32.lib")
-
+using namespace std;
 HWND hListModule;//模块框句柄
 HWND hListProcess;//进程框句柄
+
+//声明
+INT_PTR   CALLBACK PEInfoPro(
+	HWND hwnd,      // handle to window
+	UINT uMsg,      // message identifier
+	WPARAM wParam,  // first message parameter
+	LPARAM lParam   // second message parameter
+);
+//查看文件的信息
+  string filePath ="";
+  string fileName = "";
+  string exten = "";
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -51,7 +64,24 @@ PVOID GetModulePreferredBaseAddr(DWORD dwProcessId, PVOID pvModuleRemote) {
 	return(pvModulePreferredBaseAddr);
 }
 
+string TCHAR2STRING(TCHAR* str) {
+	std::string strstr;
+	try
+	{
+		int iLen = WideCharToMultiByte(CP_ACP, 0, str, -1, NULL, 0, NULL, NULL);
 
+		char* chRtn = new char[iLen * sizeof(char)];
+
+		WideCharToMultiByte(CP_ACP, 0, str, -1, chRtn, iLen, NULL, NULL);
+
+		strstr = chRtn;
+	}
+	catch (exception e)
+	{
+	}
+
+	return strstr;
+}
 ///////////////////////////////////////////////////////////////////////////////
 void __cdecl OutputDebugStringF(const char* format, ...)
 {
@@ -277,6 +307,198 @@ void InitModuleListView() {
 	SendMessage(hListModule, LVM_INSERTCOLUMN, 1, (DWORD)&lv);
 
 }
+////处理方法
+DWORD SelectFileOpen() {
+	OPENFILENAME ofn = { 0 };
+	TCHAR strFileName[MAX_PATH] = { 0 };	//用于接收文件名
+	ofn.lStructSize = sizeof(OPENFILENAME);	//结构体大小
+	ofn.hwndOwner = NULL;					//拥有着窗口句柄
+	ofn.lpstrFilter = TEXT("All\0*.*\exe\0*.dll\0\0");	//设置过滤
+	ofn.nFilterIndex = 1;	//过滤器索引
+	ofn.lpstrFile = strFileName;	//接收返回的文件名，注意第一个字符需要为NULL
+	ofn.nMaxFile = sizeof(strFileName);	//缓冲区长度
+	ofn.lpstrInitialDir = NULL;			//初始目录为默认
+	ofn.lpstrTitle = TEXT("请选择一个文件"); //窗口标题
+	ofn.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_HIDEREADONLY; //文件、目录必须存在，隐藏只读选项
+	//打开文件对话框
+	if (GetOpenFileName(&ofn)) {
+		 filePath = TCHAR2STRING(strFileName);
+		int start = filePath.find_last_of('\\');
+		int end = filePath.find_last_of('.');
+		 fileName = filePath.substr(start + 1, end - start - 1);
+		 exten = filePath.substr(end, filePath.length() - end);
+	
+		
+		DialogBoxW(NULL, MAKEINTRESOURCE(IDD_DIALOG_PE), NULL, PEInfoPro, 0);
+
+	}
+	else {
+		MessageBox(NULL, TEXT("请选择一文件"), NULL, MB_ICONERROR);
+	}
+
+	return 0;
+}
+//ReadFile读取filebuffer
+DWORD ReadPEFile(IN LPSTR lpszFile, OUT LPVOID* pFileBuffer) {
+	FILE* file = NULL;
+	LPVOID pTempFileBuffer = NULL;
+	DWORD nFileLen = 0;
+
+	file = fopen(lpszFile, "rb");
+	if (file == NULL) {
+		printf("打开文件错误!");
+		return 0;
+	}
+
+	fseek(file, 0, SEEK_END);
+
+	nFileLen = ftell(file);
+
+	printf("The file pointer is at byte  %d \n", nFileLen);
+	fseek(file, 0, SEEK_SET);
+	//...
+
+	//申请内存
+	pTempFileBuffer = malloc(nFileLen);
+
+	//判断申请内存成功没
+	if (pTempFileBuffer == NULL) {
+		printf("申请内存失败");
+		fclose(file);
+		return 0;
+	}
+
+	//将文件读取到缓冲区
+	size_t n = fread(pTempFileBuffer, nFileLen, 1, file);
+	if (!n) {
+		printf("读取数据失败");
+		free(pTempFileBuffer);
+		fclose(file);
+		return 0;
+	}
+
+	printf("pTempFileBuffer:%x\n", pTempFileBuffer);
+
+	//释放文件
+	*pFileBuffer = pTempFileBuffer;
+	pTempFileBuffer = NULL;
+	fclose(file);
+	return nFileLen;
+
+}
+
+//PE info显示
+void PEInfo(HWND  hwnd) {
+	//显示打开的文件路径
+	HWND hnd=GetDlgItem(hwnd, IDC_STATIC_FilePath);
+	SetWindowTextA(hnd,filePath.c_str());
+
+	//显示入口点等信息
+	//image头
+	LPVOID pTempFileBuffer = NULL;
+	//PE
+	PIMAGE_DOS_HEADER pDosHeader = NULL;
+	PIMAGE_NT_HEADERS pNTHeader = NULL;
+	PIMAGE_FILE_HEADER pPEHeader = NULL;
+	PIMAGE_OPTIONAL_HEADER32 pOptionHeader = NULL;
+
+	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
+
+	//强转
+	LPSTR filepath = const_cast<char*>(filePath.c_str());
+	PVOID FileBuffer = NULL;
+	DWORD fileLenth = ReadPEFile(filepath,&FileBuffer);
+
+	//赋值
+	pDosHeader = (PIMAGE_DOS_HEADER)FileBuffer;
+	pNTHeader = (PIMAGE_NT_HEADERS)((DWORD)FileBuffer + pDosHeader->e_lfanew);
+	pPEHeader = (PIMAGE_FILE_HEADER)((DWORD)pNTHeader + 4);
+	pOptionHeader = (PIMAGE_OPTIONAL_HEADER32)((DWORD)pPEHeader + IMAGE_SIZEOF_FILE_HEADER);
+	
+	//入口点
+	DWORD temp = pOptionHeader->AddressOfEntryPoint;
+	char buf[100];
+	sprintf(buf, "%X", temp);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT1_RUKOUDIAN);
+	SetWindowTextA(hnd, buf);
+	//镜像基址
+	temp = pOptionHeader->ImageBase;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT2_JINGXIANGJIZHI);
+	SetWindowTextA(hnd, buf);
+	//镜像大小
+	temp = pOptionHeader->ImageBase;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT3_JINGXIANGDAXIAO);
+	SetWindowTextA(hnd, buf);
+	//代码基址
+	temp = pOptionHeader->BaseOfCode;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT4_DAIMAJIZHI);
+	SetWindowTextA(hnd, buf);
+	//数据基址
+	temp = pOptionHeader->BaseOfData;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT5_SHUJUJIZHI);
+	SetWindowTextA(hnd, buf);
+	//内存对齐
+	temp = pOptionHeader->SectionAlignment;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT6_NEICUNDUIQI);
+	SetWindowTextA(hnd, buf);
+	//文件对齐
+	temp = pOptionHeader->FileAlignment;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT7_WENJIANDUIQI);
+	SetWindowTextA(hnd, buf);
+	//标志字
+	temp = pNTHeader->Signature;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT8_BIAOZHIZI);
+	SetWindowTextA(hnd, buf);
+	//子系统
+	temp = pOptionHeader->Subsystem;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT9_ZIXITONG);
+	SetWindowTextA(hnd, buf);
+	//区段数目
+	temp = pPEHeader->NumberOfSections;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT10_QUDUANSHUMU);
+	SetWindowTextA(hnd, buf);
+	//时间戳
+	temp = pPEHeader->TimeDateStamp;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT11_SHIJIANCHUO);
+	SetWindowTextA(hnd, buf);
+	//PE头大小
+	temp = pOptionHeader->SizeOfHeaders;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT12_PETOUDAXIAO);
+	SetWindowTextA(hnd, buf);
+	//特征值
+	temp = pPEHeader->Characteristics;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT13_TEZHENGZHI);
+	SetWindowTextA(hnd, buf);
+	//校验和
+	temp = pOptionHeader->CheckSum;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT14_JIAOYANHE);
+	SetWindowTextA(hnd, buf);
+	//可选PE头
+	temp = pPEHeader->SizeOfOptionalHeader;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT15_KEXUANPETOU);
+	SetWindowTextA(hnd, buf);
+	//目录项数目
+	temp = pOptionHeader->NumberOfRvaAndSizes;
+	sprintf(buf, "%X", temp);
+	hnd = GetDlgItem(hwnd, IDC_EDIT16_MULUXIANGSHUMU);
+	SetWindowTextA(hnd, buf);
+}
+
+
 INT_PTR   CALLBACK SectionPro(
 	HWND hwnd,      // handle to window
 	UINT uMsg,      // message identifier
@@ -327,6 +549,7 @@ INT_PTR   CALLBACK DirPro(
 
 	return 0;
 }
+
 INT_PTR   CALLBACK PEInfoPro(
 	HWND hwnd,      // handle to window
 	UINT uMsg,      // message identifier
@@ -341,6 +564,11 @@ INT_PTR   CALLBACK PEInfoPro(
 			//关闭对话框
 			EndDialog(hwnd, uMsg);
 			return 1;
+		}
+
+		//初始化时候
+		case WM_INITDIALOG: {
+			PEInfo(hwnd);
 		}
 
 		case WM_COMMAND:
@@ -388,7 +616,7 @@ INT_PTR   CALLBACK AboutPro(
 
 	return 0;
 }
-
+//主窗口..
 INT_PTR   CALLBACK MainDlgProc(
 	HWND hwnd,      // handle to window
 	UINT uMsg,      // message identifier
@@ -431,7 +659,8 @@ INT_PTR   CALLBACK MainDlgProc(
 		
 			return 1;
 		case IDC_BUTTON_PE:
-			DialogBoxW(NULL, MAKEINTRESOURCE(IDD_DIALOG_PE), NULL, PEInfoPro, 0);
+			SelectFileOpen();
+			
 			return 1;
 		}
 	case IDC_BUTTON_Exit://退出按钮

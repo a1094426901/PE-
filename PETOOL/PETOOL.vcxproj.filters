@@ -18,6 +18,9 @@
     <ClCompile Include="PETOOL.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="PESection.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
