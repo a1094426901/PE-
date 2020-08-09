@@ -36,6 +36,9 @@ INT_PTR   CALLBACK PEInfoPro(
   string filePath ="";
   string fileName = "";
   string exten = "";
+  PIMAGE_OPTIONAL_HEADER32 pOptionHeader = NULL;
+ 
+
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -400,7 +403,7 @@ void PEInfo(HWND  hwnd) {
 	PIMAGE_DOS_HEADER pDosHeader = NULL;
 	PIMAGE_NT_HEADERS pNTHeader = NULL;
 	PIMAGE_FILE_HEADER pPEHeader = NULL;
-	PIMAGE_OPTIONAL_HEADER32 pOptionHeader = NULL;
+	
 
 	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
 
@@ -497,7 +500,129 @@ void PEInfo(HWND  hwnd) {
 	hnd = GetDlgItem(hwnd, IDC_EDIT16_MULUXIANGSHUMU);
 	SetWindowTextA(hnd, buf);
 }
+//显示16个数据项
+void ShowDataDirectory(HWND hwnd) {
+	PDWORD DATA = (PDWORD)((DWORD)pOptionHeader + 96);
 
+	char buf[100];
+	//开始输出可选头信息
+	printf("pe可选投： %x\n", *(PWORD)pOptionHeader);
+	printf("目录表结构开始%X \n", *(PDWORD)DATA);
+	printf("导出表地址:%x ,  导出表大小:%x \n", pOptionHeader->DataDirectory[0].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[0].VirtualAddress);
+	HWND hnd = GetDlgItem(hwnd, IDC_EDIT1_SHUCHURVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[0].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT2_SHUCHUSIZE);
+	SetWindowTextA(hnd, buf);
+	printf("导入表地址:%x ,  导入表大小:%x \n", pOptionHeader->DataDirectory[1].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[1].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT3_SHURURVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[1].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT4_SHUCHUSIZE);
+	SetWindowTextA(hnd, buf);
+
+	printf("资源表地址:%x ,  资源表大小:%x \n", pOptionHeader->DataDirectory[2].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[2].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT5_ZIYUANRVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[2].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT6_ZIYUANSIZE);
+	SetWindowTextA(hnd, buf);
+	printf("异常表地址:%x ,  异常表大小:%x \n", pOptionHeader->DataDirectory[3].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[3].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT7_YICHANGRVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[3].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT8_YICHANGSIZE);
+	SetWindowTextA(hnd, buf);
+	printf("安全证书表地址:%x , 安全证书表大小:%x \n", pOptionHeader->DataDirectory[4].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[4].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT9_ANQUANRVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[4].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT10_ANQUANSIZE);
+	SetWindowTextA(hnd, buf);
+	printf("重定位表地址:%x ,  重定位表大小:%x \n", pOptionHeader->DataDirectory[5].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[5].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT11_CONGDINGWEIRVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[5].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT12_CHONGDINGWEISIZE);
+	SetWindowTextA(hnd, buf);
+	printf("调试信息地址:%x ,  调试信息表大小:%x \n", pOptionHeader->DataDirectory[6].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[6].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT13_TIAOSHIRVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[6].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT14_TIAOSHISIZE);
+	SetWindowTextA(hnd, buf);
+	printf("版权所有地址:%x ,  版权所有表大小:%x \n", pOptionHeader->DataDirectory[7].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[7].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT15_BANQUANRVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[7].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT16_BANQUANSIZE);
+	SetWindowTextA(hnd, buf);
+	printf("全局指针表地址:%x ,  全局指针表大小:%x \n", pOptionHeader->DataDirectory[8].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[8].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT17_QUANJUZHIZHENRVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[8].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT18_QUANJUZHIZHENSIZE);
+	SetWindowTextA(hnd, buf);
+	printf("TLS表地址:%x ,  TLS表表大小:%x \n", pOptionHeader->DataDirectory[9].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[9].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT19_TLSRVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[9].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT20_TLSSIZE);
+	SetWindowTextA(hnd, buf);
+	printf("加载配置表地址:%x ,  加载配置表大小:%x \n", pOptionHeader->DataDirectory[10].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[10].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT21_DAORUPEIZHIRVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[10].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT22_DAORUPEIZHISIZE);
+	SetWindowTextA(hnd, buf);
+	printf("绑定导入表地址:%x , 绑定导入表大小:%x \n", pOptionHeader->DataDirectory[11].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[11].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT23_BANGDINGDAORURVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[11].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT24_BANGDINGDAORUSIZE);
+	SetWindowTextA(hnd, buf);
+	printf("IAT表地址:%x ,  IAT表大小:%x \n", pOptionHeader->DataDirectory[12].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[12].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT25_IATRVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[12].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT26_IATSIZE);
+	SetWindowTextA(hnd, buf);
+	printf("延迟导入表地址:%x ,  延迟导入表大小:%x \n", pOptionHeader->DataDirectory[13].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[13].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT27_YANCHIDAORURVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[13].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT28_YANCHIDAORUSIZE);
+	SetWindowTextA(hnd, buf);
+	printf("COM表地址:%x ,  COM表大小:%x \n", pOptionHeader->DataDirectory[14].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[14].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT29_COMRVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[14].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT30_COMSIZE);
+	SetWindowTextA(hnd, buf);
+	printf("保留表地址:%x ,  保留表大小:%x \n", pOptionHeader->DataDirectory[15].VirtualAddress, pOptionHeader->DataDirectory[0].Size);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[15].VirtualAddress);
+	 hnd = GetDlgItem(hwnd, IDC_EDIT31_BAOLIURVA);
+	SetWindowTextA(hnd, buf);
+	sprintf(buf, "%X", pOptionHeader->DataDirectory[15].Size);
+	hnd = GetDlgItem(hwnd, IDC_EDIT32_BAOLIUSIZE);
+	SetWindowTextA(hnd, buf);
+
+}
 
 INT_PTR   CALLBACK SectionPro(
 	HWND hwnd,      // handle to window
@@ -526,6 +651,13 @@ INT_PTR   CALLBACK DirPro(
 )
 {
 	switch (uMsg) {
+
+		//初始化时候
+		case WM_INITDIALOG: {
+			ShowDataDirectory(hwnd);
+			return 1;
+
+		}
 
 		case WM_CLOSE:
 		{
@@ -587,6 +719,9 @@ INT_PTR   CALLBACK PEInfoPro(
 			}
 			case IDC_BUTTON3_MULU:
 			{
+				//显示目录
+
+
 				DialogBoxW(NULL, MAKEINTRESOURCE(IDD_DIALOG1_MULU), NULL, DirPro, 0);
 				return 1;
 			}

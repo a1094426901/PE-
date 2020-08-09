@@ -39,10 +39,12 @@
 #define IDC_EDIT8_YICHANGSIZE           1035
 #define IDC_EDIT12_PETOUDAXIAO          1036
 #define IDC_EDIT9_CONGDINGWEIRVA        1036
+#define IDC_EDIT11_CONGDINGWEIRVA       1036
 #define IDC_EDIT13_TEZHENGZHI           1037
 #define IDC_EDIT10_ANQUANSIZE           1037
 #define IDC_EDIT14_JIAOYANHE            1038
-#define IDC_EDIT11_ANQUANRVA            1038
+
+#define IDC_EDIT9_ANQUANRVA             1038
 #define IDC_EDIT15_KEXUANPETOU          1039
 #define IDC_EDIT12_CHONGDINGWEISIZE     1039
 #define IDC_EDIT16_MULUXIANGSHUMU       1040
@@ -53,7 +55,6 @@
 #define IDC_BUTTON1_SHUCHUBIAO          1044
 #define IDC_BUTTON2_GUANBI              1045
 #define IDC_EDIT17_QUANJUZHIZHENRVA     1046
-#define IDC_STATIC_FilePath             1088
 #define IDC_EDIT18_QUANJUZHIZHENSIZE    1047
 #define IDC_EDIT19_TLSRVA               1048
 #define IDC_EDIT20_TLSSIZE              1049
@@ -74,6 +75,7 @@
 #define IDC_BUTTON4_CHONGDINGWEI        1085
 #define IDC_BUTTON5_BANGDINGDAORU       1086
 #define IDC_BUTTON6_IAT                 1087
+#define IDC_STATIC_FilePath             1088
 
 // Next default values for new objects
 // 
