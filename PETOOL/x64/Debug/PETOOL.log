@@ -3,27 +3,27 @@ G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\CmnHdr.h(17,1): warning C4005: “
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\sdkddkver.h(217): message : 参见“_WIN32_WINNT”的前一个定义
 G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\CmnHdr.h(18,1): warning C4005: “WINVER”: 宏重定义
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\sdkddkver.h(238): message : 参见“WINVER”的前一个定义
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(173,75): warning C4311: “类型强制转换”: 从“LVITEMW *”到“DWORD”的指针截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(173,75): warning C4302: “类型强制转换”: 从“LVITEMW *”到“DWORD”截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(157,9): warning C4189: “err”: 局部变量已初始化但不引用
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(202,37): warning C4459: “hListProcess”的声明隐藏了全局声明
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(174,75): warning C4311: “类型强制转换”: 从“LVITEMW *”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(174,75): warning C4302: “类型强制转换”: 从“LVITEMW *”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(158,9): warning C4189: “err”: 局部变量已初始化但不引用
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(203,37): warning C4459: “hListProcess”的声明隐藏了全局声明
 G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(26,6): message : 参见“hListProcess”的声明
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(225,64): warning C4311: “类型强制转换”: 从“LVITEMW *”到“DWORD”的指针截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(225,64): warning C4302: “类型强制转换”: 从“LVITEMW *”到“DWORD”截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(263,59): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(263,59): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(269,59): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(269,59): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(298,58): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(298,58): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(304,58): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(304,58): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(310,58): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(310,58): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(319,20): warning C4129: “e”: 不可识别的字符转义序列
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(335,3): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(383,9): warning C4477: “printf”: 格式字符串“%x”需要类型“unsigned int”的参数，但可变参数 1 拥有了类型“LPVOID”
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(383,9): warning C4313: “printf”: 格式字符串中的“%x”与“LPVOID”类型的参数 1 冲突
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(226,64): warning C4311: “类型强制转换”: 从“LVITEMW *”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(226,64): warning C4302: “类型强制转换”: 从“LVITEMW *”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(264,59): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(264,59): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(270,59): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(270,59): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(299,58): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(299,58): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(305,58): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(305,58): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(311,58): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(311,58): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(320,20): warning C4129: “e”: 不可识别的字符转义序列
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(336,3): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(384,9): warning C4477: “printf”: 格式字符串“%x”需要类型“unsigned int”的参数，但可变参数 1 拥有了类型“LPVOID”
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(384,9): warning C4313: “printf”: 格式字符串中的“%x”与“LPVOID”类型的参数 1 冲突
 G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(417,52): warning C4311: “类型强制转换”: 从“PVOID”到“DWORD”的指针截断
 G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(417,52): warning C4302: “类型强制转换”: 从“PVOID”到“DWORD”截断
 G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(418,52): warning C4311: “类型强制转换”: 从“PIMAGE_NT_HEADERS”到“DWORD”的指针截断
@@ -31,12 +31,27 @@ G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(418,52): warning C4302:
 G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(419,62): warning C4311: “类型强制转换”: 从“PIMAGE_FILE_HEADER”到“DWORD”的指针截断
 G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(419,62): warning C4302: “类型强制转换”: 从“PIMAGE_FILE_HEADER”到“DWORD”截断
 G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(408,24): warning C4189: “pSectionHeader”: 局部变量已初始化但不引用
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(401,9): warning C4189: “pTempFileBuffer”: 局部变量已初始化但不引用
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(402,9): warning C4189: “pTempFileBuffer”: 局部变量已初始化但不引用
 G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(413,8): warning C4189: “fileLenth”: 局部变量已初始化但不引用
 G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(505,46): warning C4311: “类型强制转换”: 从“PIMAGE_OPTIONAL_HEADER32”到“DWORD”的指针截断
 G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(505,46): warning C4302: “类型强制转换”: 从“PIMAGE_OPTIONAL_HEADER32”到“DWORD”截断
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(717,5): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(725,5): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(793,4): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
-G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(845,2): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(643,86): warning C4311: “类型强制转换”: 从“PIMAGE_OPTIONAL_HEADER32”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(643,86): warning C4302: “类型强制转换”: 从“PIMAGE_OPTIONAL_HEADER32”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(646,20): warning C4018: “<”: 有符号/无符号不匹配
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(731,59): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(731,59): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(737,59): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(737,59): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(743,59): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(743,59): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(749,59): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(749,59): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(755,59): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(755,59): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(760,59): warning C4311: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”的指针截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(760,59): warning C4302: “类型强制转换”: 从“LVCOLUMNW *”到“DWORD”截断
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(864,5): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(872,5): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(940,4): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
+G:\2020-2021\PECODE\滴水初级\PE\PE\PETOOL\PETOOL.cpp(992,2): warning C4002: 类函数宏的调用“DialogBoxW”参数过多
   PETOOL.vcxproj -> G:\2020-2021\PECODE\滴水初级\PE\PE\x64\Debug\PETOOL.exe

@@ -24,6 +24,7 @@
 using namespace std;
 HWND hListModule;//模块框句柄
 HWND hListProcess;//进程框句柄
+HWND hListSection;//节表句柄
 
 //声明
 INT_PTR   CALLBACK PEInfoPro(
@@ -37,7 +38,7 @@ INT_PTR   CALLBACK PEInfoPro(
   string fileName = "";
   string exten = "";
   PIMAGE_OPTIONAL_HEADER32 pOptionHeader = NULL;
- 
+  PIMAGE_FILE_HEADER  pPEHeader = NULL;
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -402,7 +403,6 @@ void PEInfo(HWND  hwnd) {
 	//PE
 	PIMAGE_DOS_HEADER pDosHeader = NULL;
 	PIMAGE_NT_HEADERS pNTHeader = NULL;
-	PIMAGE_FILE_HEADER pPEHeader = NULL;
 	
 
 	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
@@ -623,6 +623,147 @@ void ShowDataDirectory(HWND hwnd) {
 	SetWindowTextA(hnd, buf);
 
 }
+/******************************************************************************************
+Function:        ConvertCharToLPWSTR
+Description:     const char *转LPWSTR
+Input:           str:待转化的const char *类型字符串
+Return:          转化后的LPWSTR类型字符串
+*******************************************************************************************/
+LPWSTR ConvertCharToLPWSTR(const char* szString)
+{
+	int dwLen = strlen(szString) + 1;
+	int nwLen = MultiByteToWideChar(CP_ACP, 0, szString, dwLen, NULL, 0);//算出合适的长度
+	LPWSTR lpszPath = new WCHAR[dwLen];
+	MultiByteToWideChar(CP_ACP, 0, szString, dwLen, lpszPath, nwLen);
+	return lpszPath;
+}
+void EnumSectionInfo() {
+
+
+	PIMAGE_SECTION_HEADER	pSectionHeader = (PIMAGE_SECTION_HEADER)((DWORD)pOptionHeader + pPEHeader->SizeOfOptionalHeader);
+	DWORD sectionnum = (DWORD)pPEHeader->NumberOfSections;
+
+	for (int sec=0;sec<sectionnum;sec++	)
+	{
+		LV_ITEM LvItem;
+		memset(&LvItem, 0, sizeof(LV_ITEM));
+		char Temp[100];
+		LvItem.mask = LVIF_TEXT;   // Text Style
+		LvItem.cchTextMax = 256; // Max size of test
+		LvItem.iItem = sec;          // choose item  
+		//LvItem.iSubItem = sec;       // Put in first coluom
+		
+		LvItem.pszText = ConvertCharToLPWSTR((CHAR*)pSectionHeader->Name); // Text to display (can be from a char variable) (Items)
+
+		SendMessage(hListSection, LVM_INSERTITEM, 0, (LPARAM)&LvItem); // Send info to the Listview
+	
+	
+			LvItem.iSubItem = 1;
+			sprintf(Temp, "%x", pSectionHeader->VirtualAddress);
+			LvItem.pszText = ConvertCharToLPWSTR(Temp);
+			SendMessage(hListSection, LVM_SETITEM, 0, (LPARAM)&LvItem); // Enter text to SubItems
+	
+
+			LvItem.iSubItem = 2;
+			sprintf(Temp, "%x", pSectionHeader->Misc.VirtualSize);
+			LvItem.pszText = ConvertCharToLPWSTR(Temp);
+			SendMessage(hListSection, LVM_SETITEM, 0, (LPARAM)&LvItem); // Enter text to SubItems
+
+			LvItem.iSubItem = 3;
+			sprintf(Temp, "%x", pSectionHeader->PointerToRawData);
+			LvItem.pszText = ConvertCharToLPWSTR(Temp);
+			SendMessage(hListSection, LVM_SETITEM, 0, (LPARAM)&LvItem); // Enter text to SubItems
+
+			LvItem.iSubItem = 4;
+			sprintf(Temp, "%x", pSectionHeader->SizeOfRawData);
+			LvItem.pszText = ConvertCharToLPWSTR(Temp);
+			SendMessage(hListSection, LVM_SETITEM, 0, (LPARAM)&LvItem); // Enter text to SubItems
+
+			LvItem.iSubItem = 5;
+			sprintf(Temp, "%x", pSectionHeader->Characteristics);
+			LvItem.pszText = ConvertCharToLPWSTR(Temp);
+			SendMessage(hListSection, LVM_SETITEM, 0, (LPARAM)&LvItem); // Enter text to SubItems
+
+
+			pSectionHeader = pSectionHeader + 1;
+	}
+		
+
+	/*	lv_item.pszText = LPWSTR(pSectionHeader->Misc.VirtualSize);
+		lv_item.iItem = sec;
+		lv_item.iSubItem = 2;
+		ListView_SetItem(hListSection, &lv_item);
+
+		lv_item.pszText = LPWSTR(pSectionHeader->PointerToRawData);
+		lv_item.iItem = sec;
+		lv_item.iSubItem =3;
+		ListView_SetItem(hListSection, &lv_item);
+
+		lv_item.pszText = LPWSTR(pSectionHeader->SizeOfRawData);
+		lv_item.iItem = sec;
+		lv_item.iSubItem = 4;
+		ListView_SetItem(hListSection, &lv_item);
+
+		lv_item.pszText = LPWSTR(pSectionHeader->Characteristics);
+		lv_item.iItem = sec;
+		lv_item.iSubItem = 5;
+		ListView_SetItem(hListSection, &lv_item);*/
+
+
+
+		//
+
+}
+//初始化显示节表信息
+void InitSectionInfo(HWND hwnd) {
+	LV_COLUMN lv;
+	//初始化
+	memset(&lv, 0, sizeof(LV_COLUMN));
+
+	///设置整行选中
+	SendMessage(hListSection, LVM_SETEXTENDEDLISTVIEWSTYLE, LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT);
+	//第一列
+	lv.mask = LVCF_TEXT | LVCF_WIDTH | LVCF_SUBITEM;
+	lv.pszText = LPWSTR(L"名称");
+	lv.cx = 100;
+	lv.iSubItem = 0;
+	
+	SendMessage(hListSection, LVM_INSERTCOLUMN, 0, (DWORD)&lv);
+
+	//第二列
+	lv.pszText = LPWSTR(L"V.内存中偏移");
+	lv.cx = 100;
+	lv.iSubItem = 1;
+	SendMessage(hListSection, LVM_INSERTCOLUMN, 1, (DWORD)&lv);
+
+	//第三列
+	lv.pszText = LPWSTR(L"V.内存中大小");
+	lv.cx = 100;
+	lv.iSubItem = 2;
+	SendMessage(hListSection, LVM_INSERTCOLUMN, 2, (DWORD)&lv);
+		
+	//第四列
+	lv.pszText = LPWSTR(L"R.文件中偏移");
+	lv.cx = 100;
+	lv.iSubItem = 3;
+	SendMessage(hListSection, LVM_INSERTCOLUMN, 3, (DWORD)&lv);
+
+	//第五列
+	lv.pszText = LPWSTR(L"R.文件中大小");
+	lv.cx = 100;
+	lv.iSubItem = 4;
+	SendMessage(hListSection, LVM_INSERTCOLUMN, 4, (DWORD)&lv);
+	//第六列
+	lv.pszText = LPWSTR(L"标志");
+	lv.cx = 100;
+	lv.iSubItem =5;
+	SendMessage(hListSection, LVM_INSERTCOLUMN, 5, (DWORD)&lv);
+
+
+	//数据插入
+	EnumSectionInfo();
+}
+
 
 INT_PTR   CALLBACK SectionPro(
 	HWND hwnd,      // handle to window
@@ -632,13 +773,19 @@ INT_PTR   CALLBACK SectionPro(
 )
 {
 	switch (uMsg) {
-
-	case WM_CLOSE:
-	{
-		//关闭对话框
-		EndDialog(hwnd, uMsg);
+		//初始化时候
+		case WM_INITDIALOG: {
+		hListSection= GetDlgItem(hwnd, IDC_LIST2_SectionTable);
+		InitSectionInfo(hwnd);
 		return 1;
+
 	}
+		case WM_CLOSE:
+		{
+			//关闭对话框
+			EndDialog(hwnd, uMsg);
+			return 1;
+		}
 	}
 
 	return 0;

@@ -25,7 +25,6 @@
 #define IDC_BUTTON1_QUDUAN              1025
 #define IDC_BUTTON_GUANBI               1026
 #define IDC_BUTTON3_MULU                1027
-#define IDC_LIST2_SectionTable          1027
 #define IDC_EDIT1_SHUCHURVA             1028
 #define IDC_EDIT2_SHUCHUSIZE            1029
 #define IDC_EDIT3_SHURURVA              1030
@@ -76,6 +75,7 @@
 #define IDC_BUTTON5_BANGDINGDAORU       1086
 #define IDC_BUTTON6_IAT                 1087
 #define IDC_STATIC_FilePath             1088
+#define IDC_LIST2_SectionTable          1089
 
 // Next default values for new objects
 // 
